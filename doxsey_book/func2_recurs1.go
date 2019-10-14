@@ -25,13 +25,27 @@ func sum2(inparr []int32, isum int32) int32 {
 	return sum2(inparr[1:], isum+inparr[0])
 }
 
+func fibonacci(n int) int64 {
+	if n == 1 {
+		return 0
+	} else if n == 2 {
+		return 1
+	} else {
+		return fibonacci(n-1) + fibonacci(n-2)
+	}
+	// this is horribly slow..try running for n = 90, it underflows. can the fabled concurrency speed this up
+	// for that matter, memoization might help. something about saving the call stack last value ... ?
+}
 
 func main() {
 
-	a := []int32{1, 2, 3, 4}
+	// a := []int32{1, 2, 3, 4}
 
-	fmt.Println(sum2(a, 0))
+	// fmt.Println(sum2(a, 0))
 
-	fmt.Println(product(a, 1))
+	// fmt.Println(product(a, 1))
+	for i := 1; i < 70; i++ {
+		fmt.Println("i = ", i, "fibonacci number = ", fibonacci(i))
+	}
 
 }
