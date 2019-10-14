@@ -25,16 +25,24 @@ func sum2(inparr []int32, isum int32) int32 {
 	return sum2(inparr[1:], isum+inparr[0])
 }
 
+// this is horribly slow..try running for n = 90, it underflows. can the fabled concurrency speed this up
+// for that matter, memoization might help. something about saving the call stack last value ... ?
 func fibonacci(n int) int64 {
-	if n == 1 {
-		return 0
-	} else if n == 2 {
-		return 1
-	} else {
-		return fibonacci(n-1) + fibonacci(n-2)
+
+	// nested function(!) syntax from https://stackoverflow.com/a/43555474
+	// memoization from https://medium.com/outco/how-to-implement-memoization-in-3-simple-steps-83758b2439a
+	recurse := func(n int) int64 {
+		if n == 1 {
+			return 0
+		} else if n == 2 {
+			return 1
+		} else {
+			return fibonacci(n-1) + fibonacci(n-2)
+		}
 	}
-	// this is horribly slow..try running for n = 90, it underflows. can the fabled concurrency speed this up
-	// for that matter, memoization might help. something about saving the call stack last value ... ?
+
+	return recurse(n)
+
 }
 
 func main() {
