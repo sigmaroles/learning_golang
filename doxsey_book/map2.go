@@ -4,6 +4,8 @@ import "fmt"
 
 func main() {
 	/* 		Nested maps; {string : {string: string}} */
+	// the python equivalent is a dict of dicts
+
 	elem := map[string]map[string]string{
 		"H":  map[string]string{"name": "Hydrogen", "state": "gas"},
 		"C":  map[string]string{"name": "Carbon", "state": "solid"},
