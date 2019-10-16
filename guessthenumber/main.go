@@ -12,7 +12,10 @@ import (
 
 func main() {
 
-	secretNum := generateRandInt(1, 100)
+	rand.Seed(time.Now().Unix())
+
+	secretNum := rand.Intn(100-0) + 0
+
 	fmt.Println("Guess a number between 1 and 100")
 
 	attempts := 0
@@ -40,12 +43,4 @@ func main() {
 		}
 
 	}
-}
-
-
-
-func generateRandInt(min, max int) int {
-	rand.Seed(time.Now().Unix())
-	fmt.
-	return rand.Intn(max-min) + min
 }

@@ -25,23 +25,28 @@ func sum2(inparr []int32, isum int32) int32 {
 	return sum2(inparr[1:], isum+inparr[0])
 }
 
-// this is horribly slow..try running for n = 90, it underflows. can the fabled concurrency speed this up
-// for that matter, memoization might help. something about saving the call stack last value ... ?
 func fibonacci(n int) int64 {
 
-	// nested function(!) syntax from https://stackoverflow.com/a/43555474
-	// memoization from https://medium.com/outco/how-to-implement-memoization-in-3-simple-steps-83758b2439a
-	recurse := func(n int) int64 {
-		if n == 1 {
-			return 0
-		} else if n == 2 {
+	// nested function syntax: https://stackoverflow.com/a/43555474
+	// memoization: https://forum.golangbridge.org/t/memoization-in-go/7285/10
+
+	cache := make(map[int]int64)
+
+	var recurseFib func(int) int64
+
+	recurseFib = func(n int) int64 {
+		if n == 1 || n == 2 {
 			return 1
-		} else {
-			return fibonacci(n-1) + fibonacci(n-2)
 		}
+		if _, ok := cache[n]; !ok {
+			cache[n] = recurseFib(n-1) + recurseFib(n-2)
+		}
+		return cache[n]
 	}
 
-	return recurse(n)
+	// LEARNING TODO: what's the difference between returning a value (as done below)
+	// as opposed to recurseFib, i.e the function itself (as done in the forum linked above) ??
+	return recurseFib(n)
 
 }
 
@@ -52,7 +57,7 @@ func main() {
 	// fmt.Println(sum2(a, 0))
 
 	// fmt.Println(product(a, 1))
-	for i := 1; i < 70; i++ {
+	for i := 40; i < 50; i++ {
 		fmt.Println("i = ", i, "fibonacci number = ", fibonacci(i))
 	}
 
