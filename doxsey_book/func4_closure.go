@@ -6,6 +6,8 @@ import (
 	"time"
 )
 
+// also look at https://www.calhoun.io/what-is-a-closure/
+
 /*
 The book's example was too trivial, so used this page:
 https://tleyden.github.io/blog/2016/12/20/understanding-function-closures-in-go/
@@ -40,30 +42,29 @@ func sendloop(sender SenderF) {
 func main() {
 
 	counter := 0
-	maxAttempts := 8
+	maxAttempts := 20000
+
+	/*
+		take no arguments, "sends" predefined message, returns boolean (status)
+		keeps track of how many times it has been called -- crucial aspect
+	*/
 	mySender := func() bool {
-		success := rand.Intn(10)
-		fmt.Print("\nrandInt = ", success)
+		success := rand.Intn(10) // message "sent" or not
+		// fmt.Print("\nrandInt = ", success, "\n")
 		if success == 0 {
-			return true // this is inverted from the source blog. works same because corresponding changes made
+			return true
 		}
-		fmt.Print(" ||| was not able to send the message yet")
+		fmt.Println("was not able to send the message yet")
 		counter += 1
 		return counter > maxAttempts
 	}
 
 	/*
-
 	   The sendLoop() doesn’t know anything about the internals of the SenderF
 	   in terms of how it tracks whether or not it should retry or not, it just treats
 	   it as a black box. Different SenderF implementations could use vastly different
 	   rules and/or states for deciding whether the sendLoop() should retry a failed send.
-
 	*/
 
 	sendloop(mySender)
 }
-
-/*
-এই প্রথমবার কোন সোর্স ফাইল এ বাংলায় কমেন্ট লিখছি
-*/
