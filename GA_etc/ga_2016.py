@@ -8,7 +8,7 @@ pMutation = 0.1
 iterations = 70000
 
 def crossover(mat):
-    sortemat = sorted(mat, key=itemgetter(10), reverse=True)
+    # sortemat = sorted(mat, key=itemgetter(10), reverse=True)
     cross_pos = int(round(random.random()*6 + 1))
     cross_count = int(ROWCOUNT * pCrossover)
     pts = randperm(list(range(cross_count)))
