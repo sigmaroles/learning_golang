@@ -3,14 +3,20 @@ package main
 import "fmt"
 
 func main() {
-	var data int
-	for data < 60 {
+	data := 100
+	for data > 90 {
 
 		go func() {
+			fmt.Println("Plus func; got data = ", data)
 			data++
 		}()
 
-		go fmt.Print(data, " : ")
+		go func() {
+			fmt.Println("Minus func; got data = ", data)
+			data--
+		}()
+
+		fmt.Println("State of data : ", data)
 	}
 	fmt.Println("\nFinal value is ", data)
 }
