@@ -3,8 +3,9 @@ package main
 import "fmt"
 
 func main() {
-	data := 100
-	for data > 90 {
+	data := 0
+	iter := 0
+	for data < 10 {
 
 		go func() {
 			fmt.Println("Plus func; got data = ", data)
@@ -16,7 +17,8 @@ func main() {
 			data--
 		}()
 
-		fmt.Println("State of data : ", data)
+		iter++
+		fmt.Println("iter = ", iter, " data : ", data)
 	}
 	fmt.Println("\nFinal value is ", data)
 }
